@@ -1,0 +1,15 @@
+--- #YAML:1.0
+name:                Email-Blaster
+version:             0.0001_01
+abstract:            Scalable Mass Email System
+license:             ~
+author:              
+    - john <john@hsd1.co.comcast.net.>
+generated_by:        ExtUtils::MakeMaker version 6.42
+distribution_type:   module
+requires:     
+    forks:                         0
+    Mail::Sendmail:                0
+meta-spec:
+    url:     http://module-build.sourceforge.net/META-spec-v1.3.html
+    version: 1.3

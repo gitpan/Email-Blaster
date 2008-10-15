@@ -1,0 +1,7 @@
+Changes
+Makefile.PL
+MANIFEST
+README
+t/Email-Blaster.t
+lib/Email/Blaster.pm
+META.yml                                 Module meta-data (added by MakeMaker)
