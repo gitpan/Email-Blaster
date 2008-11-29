@@ -14,7 +14,7 @@ use HTTP::Date 'time2iso';
 use Time::HiRes qw( gettimeofday usleep );
 use Digest::MD5 'md5_hex';
 
-our $VERSION = '0.0001_03';
+our $VERSION = '0.0001_04';
 our $InstanceClass = __PACKAGE__;
 our $instance;
 my @progress : shared = ( );
