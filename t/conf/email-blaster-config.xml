@@ -54,28 +54,18 @@
   
     <!-- Called when a transmission has begun -->
     <begin_transmission>
-      <handler>Email::Blaster::TransmissionBeginHandler</handler>
+      <handler>My::TransmissionBeginHandler</handler>
     </begin_transmission>
     
     <!-- Called when a transmission has ended -->
     <end_transmission>
-      <handler>Email::Blaster::TransmissionEndHandler</handler>
+      <handler>My::TransmissionEndHandler</handler>
     </end_transmission>
     
-    <!-- Should add address to a local "unsubscribed" list. -->
-    <unsubscribe>
-      <handler>Email::Blaster::UnsubscribeHandler</handler>
-    </unsubscribe>
-    
-    <!-- Should remove address from a local "unsubscribed" list. -->
-    <subscribe>
-      <handler>Email::Blaster::SubscribeHandler</handler>
-    </subscribe>
-    
     <!-- Record that a message has "bounced." -->
-    <bounce>
+    <message_bounced>
       <handler>Email::Blaster::BounceHandler</handler>
-    </bounce>
+    </message_bounced>
   </handlers>
   
 </email_blaster_config>

@@ -37,9 +37,7 @@ sub _init
   map { $s->_load_class( $_ ) } @{ $s->handlers->init_transmission->handler };
   map { $s->_load_class( $_ ) } @{ $s->handlers->begin_transmission->handler };
   map { $s->_load_class( $_ ) } @{ $s->handlers->end_transmission->handler };
-  map { $s->_load_class( $_ ) } @{ $s->handlers->unsubscribe->handler };
-  map { $s->_load_class( $_ ) } @{ $s->handlers->subscribe->handler };
-  map { $s->_load_class( $_ ) } @{ $s->handlers->bounce->handler };
+  map { $s->_load_class( $_ ) } @{ $s->handlers->message_bounced->handler };
 }# end _init()
 
 

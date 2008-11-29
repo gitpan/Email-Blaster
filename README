@@ -58,6 +58,76 @@ DESCRIPTION
 
         More details to follow.
 
+HANDLING EVENTS
+    Email::Blaster offers the following events, which can be handled by one
+    or more subclasses of the appropriate class:
+
+  server_startup
+    Subclass Email::Blaster::ServerStartupHandler and add the following to
+    your config:
+
+      <handlers>
+        ...
+        <server_startup>
+          ...
+          <handler>My::StartupHandler</handler>
+        </server_startup>
+
+  server_shutdown
+    Subclass Email::Blaster::ServerShutdownHandler and add the following to
+    your config:
+
+      <handlers>
+        ...
+        <server_shutdown>
+          ...
+          <handler>My::ShutdownHandler</handler>
+        </server_shutdown>
+
+  init_transmission
+    Subclass Email::Blaster::TransmissionInitHandler and add the following
+    to your config:
+
+      <handlers>
+        ...
+        <init_transmission>
+          ...
+          <handler>My::TransmissionInitHandler</handler>
+        </init_transmission>
+
+  begin_transmission
+    Subclass Email::Blaster::TransmissionBeginHandler and add the following
+    to your config:
+
+      <handlers>
+        ...
+        <begin_transmission>
+          ...
+          <handler>My::TransmissionBeginHandler</handler>
+        </begin_transmission>
+
+  end_transmission
+    Subclass Email::Blaster::TransmissionEndHandler and add the following to
+    your config:
+
+      <handlers>
+        ...
+        <end_transmission>
+          ...
+          <handler>My::TransmissionEndHandler</handler>
+        </end_transmission>
+
+  message_bounced
+    Subclass Email::Blaster::MessageBouncedHandler and add the following to
+    your config:
+
+      <handlers>
+        ...
+        <message_bounced>
+          ...
+          <handler>My::MessageBouncedHandler</handler>
+        </message_bounced>
+
 AUTHOR
     John Drago <jdrago_999@yahoo.com>
 

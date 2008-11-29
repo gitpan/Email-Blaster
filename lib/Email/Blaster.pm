@@ -14,7 +14,7 @@ use HTTP::Date 'time2iso';
 use Time::HiRes qw( gettimeofday usleep );
 use Digest::MD5 'md5_hex';
 
-our $VERSION = '0.0001_02';
+our $VERSION = '0.0001_03';
 our $InstanceClass = __PACKAGE__;
 our $instance;
 my @progress : shared = ( );
@@ -101,6 +101,12 @@ sub run
       }# end while()
     });
     
+    # Call our initializer(s):
+    $s->handle_event(
+      type => 'begin_transmission',
+      transmission_id => $trans->id
+    );
+    
     # Wait for our workers to finish:
     $_->join foreach ( $boss, @workers );
     
@@ -112,6 +118,12 @@ sub run
     $trans->is_completed( 1 );
     $trans->completed_on( time2iso() );
     $trans->update();
+    
+    # Call our initializer(s):
+    $s->handle_event(
+      type => 'end_transmission',
+      transmission_id => $trans->id
+    );
     
   }# end while()
 }# end run()
@@ -209,7 +221,6 @@ OR (
 ORDER BY queued_on DESC
 LIMIT 0, 1
 SQL
-  $SIG{__DIE__} = \&Carp::confess;
   $sth->execute( $blaster_key );
   return unless my ($trans) = Email::Blaster::Transmission->sth_to_objects( $sth );
   
@@ -335,7 +346,78 @@ shutdown, the start or end of a transmission, etc.
 
 More details to follow.
 
-=back 
+=back
+
+=head1 HANDLING EVENTS
+
+Email::Blaster offers the following events, which can be handled by one or more
+subclasses of the appropriate class:
+
+=head2 server_startup
+
+Subclass L<Email::Blaster::ServerStartupHandler> and add the following to your config:
+
+  <handlers>
+    ...
+    <server_startup>
+      ...
+      <handler>My::StartupHandler</handler>
+    </server_startup>
+
+=head2 server_shutdown
+
+Subclass L<Email::Blaster::ServerShutdownHandler> and add the following to your config:
+
+  <handlers>
+    ...
+    <server_shutdown>
+      ...
+      <handler>My::ShutdownHandler</handler>
+    </server_shutdown>
+
+=head2 init_transmission
+
+Subclass L<Email::Blaster::TransmissionInitHandler> and add the following to your config:
+
+  <handlers>
+    ...
+    <init_transmission>
+      ...
+      <handler>My::TransmissionInitHandler</handler>
+    </init_transmission>
+
+=head2 begin_transmission
+
+Subclass L<Email::Blaster::TransmissionBeginHandler> and add the following to your config:
+
+  <handlers>
+    ...
+    <begin_transmission>
+      ...
+      <handler>My::TransmissionBeginHandler</handler>
+    </begin_transmission>
+
+=head2 end_transmission
+
+Subclass L<Email::Blaster::TransmissionEndHandler> and add the following to your config:
+
+  <handlers>
+    ...
+    <end_transmission>
+      ...
+      <handler>My::TransmissionEndHandler</handler>
+    </end_transmission>
+
+=head2 message_bounced
+
+Subclass L<Email::Blaster::MessageBouncedHandler> and add the following to your config:
+
+  <handlers>
+    ...
+    <message_bounced>
+      ...
+      <handler>My::MessageBouncedHandler</handler>
+    </message_bounced>
 
 =head1 AUTHOR
 
@@ -350,3 +432,4 @@ it under the same terms as Perl itself, either Perl version 5.10.0 or,
 at your option, any later version of Perl 5 you may have available.
 
 =cut
+

@@ -14,6 +14,7 @@ lib/Email/Blaster/MaillogWatcher/Postfix.pm
 lib/Email/Blaster/MaillogWatcher.pm
 lib/Email/Blaster/MailSender.pm
 lib/Email/Blaster/MessageAssembler.pm
+lib/Email/Blaster/MessageBouncedHandler.pm
 lib/Email/Blaster/Model/Dynamic.pm
 lib/Email/Blaster/Model/MySQL.pm
 lib/Email/Blaster/Model.pm
@@ -23,13 +24,11 @@ lib/Email/Blaster/Recipient.pm
 lib/Email/Blaster/Sendlog.pm
 lib/Email/Blaster/ShutdownHandler.pm
 lib/Email/Blaster/StartupHandler.pm
-lib/Email/Blaster/SubscribeHandler.pm
 lib/Email/Blaster/Throttled.pm
 lib/Email/Blaster/TransmissionBeginHandler.pm
 lib/Email/Blaster/TransmissionEndHandler.pm
 lib/Email/Blaster/TransmissionInitHandler.pm
 lib/Email/Blaster/Transmission.pm
-lib/Email/Blaster/UnsubscribeHandler.pm
 t/lib/My/Contact/List.pm
 t/lib/My/Contact.pm
 t/lib/My/Contact/Subscription.pm
@@ -37,6 +36,8 @@ t/lib/My/MessageAssembler.pm
 t/lib/My/ShutdownHandler.pm
 t/lib/My/StartupHandler.pm
 t/lib/My/TransmissionInitHandler.pm
+t/lib/My/TransmissionBeginHandler.pm
+t/lib/My/TransmissionEndHandler.pm
 t/01.00-db.t
 t/00.00-setup.t
 t/02.00-handlers.t
@@ -45,7 +46,7 @@ t/conf/apache2-asp-config.xml
 t/email_blaster
 sbin/bulk_blaster.pl
 sbin/throttled_blaster.pl
-sbin/fake-transmission.pl
+sbin/fake_transmission.pl
 sbin/email_blaster.sql
 
 META.yml                                 Module meta-data (added by MakeMaker)
