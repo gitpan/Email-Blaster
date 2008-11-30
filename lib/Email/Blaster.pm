@@ -14,7 +14,7 @@ use Email::Blaster::Event;
 use Email::Blaster::Event::Type;
 use Email::Blaster::Transmission;
 
-our $VERSION = '0.0001_05';
+our $VERSION = '0.0001_06';
 our $InstanceClass = __PACKAGE__;
 our $instance;
 my @progress : shared = ( );

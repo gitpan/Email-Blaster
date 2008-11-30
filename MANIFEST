@@ -28,6 +28,8 @@ lib/Email/Blaster/Sendlog.pm
 lib/Email/Blaster/ShutdownHandler.pm
 lib/Email/Blaster/StartupHandler.pm
 lib/Email/Blaster/Throttled.pm
+lib/Email/Blaster/Clustered.pm
+lib/Email/Blaster/StandAlone.pm
 lib/Email/Blaster/TransmissionBeginHandler.pm
 lib/Email/Blaster/TransmissionEndHandler.pm
 lib/Email/Blaster/TransmissionInitHandler.pm
