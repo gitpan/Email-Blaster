@@ -29,6 +29,25 @@ sub new
 
 
 #==============================================================================
+sub wait_cycle
+{
+  my ($s, $running, $processed) = @_;
+  
+  $s->SUPER::wait_cycle( $running, $processed );
+  
+  # Let everyone know that we're still active...:
+  $s->memd->set(
+    # An indicator of this hostname's active status:
+    "Connected." . $s->config->hostname,
+    # True:
+    1,
+    # Expires 60 seconds from now:
+    60
+  );
+}# end wait_cycle()
+
+
+#==============================================================================
 sub memd { shift->{memd} }
 
 
@@ -37,8 +56,21 @@ sub find_new_transmission
 {
   my ($s) = @_;
   
+  $s->memd->set(
+    # An indicator of this hostname's active status:
+    "Connected." . $s->config->hostname,
+    # True:
+    1,
+    # Expires 60 seconds from now:
+    60
+  );
   my $servers = $s->memd->get("connected_servers");
-  my $param = join ",", ( map {"'$_'"} @$servers, '' );
+  my $param = join ",", (1,
+    map {"'$_'"}
+      # Only the "Active" servers:
+      grep { $s->memd->get("Connected.$_") }
+        @$servers
+  );
   
   my $sth = Email::Blaster::Transmission->db_Main->prepare(<<"SQL");
 SELECT *

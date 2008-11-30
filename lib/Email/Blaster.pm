@@ -14,7 +14,7 @@ use Email::Blaster::Event;
 use Email::Blaster::Event::Type;
 use Email::Blaster::Transmission;
 
-our $VERSION = '0.0001_06';
+our $VERSION = '1.0000';
 our $InstanceClass = __PACKAGE__;
 our $instance;
 my @progress : shared = ( );
@@ -95,6 +95,8 @@ sub run
           @progress = ( );
         };
         $s->mark_sendlogs_as_finished( $ids ) if @$ids;
+        # Also call our wait_cycle event:
+        $s->wait_cycle( $running, $processed );
         warn "Waiting for $running workers - Finished $processed this round...\n";
         sleep(1);
       }# end while()
@@ -126,6 +128,16 @@ sub run
     
   }# end while()
 }# end run()
+
+
+#==============================================================================
+sub wait_cycle
+{
+  my ($s, $running, $processed) = @_;
+  
+  # Do nothing here:
+  1;
+}# end wait_cycle()
 
 
 #==============================================================================

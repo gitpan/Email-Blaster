@@ -10,6 +10,11 @@ Email::Blaster::Manual::Administration
 The Email::Blaster software is intended to run for months or years on end without
 requiring constant babysitting or attention.
 
+=head2 OS Shutdown
+
+If the OS shuts down, the Email::Blaster will handle the C<TERM> signal by calling
+any/all C<server_shutdown> event handlers, and then will exit.
+
 =head2 OS Restarts
 
 If the OS restarts, the Email::Blaster will not automatically start up again when the

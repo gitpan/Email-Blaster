@@ -44,7 +44,7 @@ Run C<email-blaster-standalone.pl> for stand-alone mode.
 Run C<email-blaster-clustered.pl> for clustered mode.  You will also need to install
 C<libmemcached> and C<libevent>, as well as L<Cache::Memcached>.
 
-In addition, you will need to adjust the "<cluster>" section of your config file like shown here:
+In addition, you will need to adjust the "<cluster>" section of your config file as shown here:
 
   <!-- ONLY NECESSARY FOR "CLUSTERED" EMAIL BLASTERS! -->
   <cluster>

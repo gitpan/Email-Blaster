@@ -17,6 +17,14 @@ sub run
   my $servers = $blaster->memd->get("connected_servers") || [ ];
   push @$servers, $blaster->config->hostname;
   $blaster->memd->set("connected_servers", $servers);
+  $blaster->memd->set(
+    # An indicator of this hostname's active status:
+    "Connected." . $blaster->config->hostname,
+    # True:
+    1,
+    # Expires 60 seconds from now:
+    60
+  );
 }# end run()
 
 1;# return true:

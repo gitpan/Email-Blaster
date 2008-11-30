@@ -1,5 +1,8 @@
 Revision history for Perl extension Email::Blaster.
 
+1.0000  2008-11-30
+  - Production-ready release.
+
 0.0001_05 2008-11-29
   - Updated the transmissions table in the database.
   - Added clustering support via Cache::Memcached.
