@@ -2,26 +2,8 @@ NAME
     Email::Blaster - Scalable Mass Email System
 
 SYNOPSIS
-      % mysql -u xxx -p
-      mysql> create database email_blaster;
-      mysql> quit;
-      % mysql -u xxx -p email_blaster < sbin/email_blaster.sql
-
-    Edit the config file:
-
-      % vi conf/email-blaster-config.xml
-
-    Insert some fake data to play with:
-
-      % perl fake-transmission.pl
-
-    Run the bulk blaster:
-
-      % perl bulk_blaster.pl
-
-    Run the *throttled* blaster:
-
-      % perl throttled_blaster.pl
+    Generally, don't use this module from your code. Use the supplied
+    scripts instead.
 
 DESCRIPTION
     Email::Blaster is the latest in a long, long line of mass-emailer
@@ -29,13 +11,18 @@ DESCRIPTION
 
     This version has many features.
 
+    *   Clustering Support
+
+        Uses memcached and libevent to do the heavy lifting.
+
     *   Testing mode.
 
         Send a few messages to yourself before you turn on the firehose.
 
     *   Domain-based throttling with hourly limits.
 
-        Never get blacklisted again because of email flooding.
+        Never get blacklisted again because of email flooding too quickly
+        from your network.
 
     *   Configurable (and subclassable) behaviors and components.
 
@@ -43,7 +30,7 @@ DESCRIPTION
         subclass something (i.e. MailSender or MaillogWatcher) to get the
         desired behavior.
 
-    *   Scales Out Well.
+    *   Scales Out Well (Clustering).
 
         Designed to spread the work out across many, many, many servers. If
         your email list has 1Million subscribers, you could *reliably* send
@@ -127,6 +114,12 @@ HANDLING EVENTS
           ...
           <handler>My::MessageBouncedHandler</handler>
         </message_bounced>
+
+SUPPORT
+    Visit <http://www.devstack.com/contact/> or email the author at
+    <jdrago_999@yahoo.com>
+
+    Commercial support and installation is available.
 
 AUTHOR
     John Drago <jdrago_999@yahoo.com>

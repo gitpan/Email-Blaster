@@ -15,6 +15,9 @@ lib/Email/Blaster/MaillogWatcher.pm
 lib/Email/Blaster/MailSender.pm
 lib/Email/Blaster/MessageAssembler.pm
 lib/Email/Blaster/MessageBouncedHandler.pm
+lib/Email/Blaster/ConfigNode/Cluster.pm
+lib/Email/Blaster/ClusteredStartupHandler.pm
+lib/Email/Blaster/ClusteredShutdownHandler.pm
 lib/Email/Blaster/Model/Dynamic.pm
 lib/Email/Blaster/Model/MySQL.pm
 lib/Email/Blaster/Model.pm
@@ -29,6 +32,8 @@ lib/Email/Blaster/TransmissionBeginHandler.pm
 lib/Email/Blaster/TransmissionEndHandler.pm
 lib/Email/Blaster/TransmissionInitHandler.pm
 lib/Email/Blaster/Transmission.pm
+lib/Email/Blaster/Manual/Setup.pod
+lib/Email/Blaster/Manual/Administration.pod
 t/lib/My/Contact/List.pm
 t/lib/My/Contact.pm
 t/lib/My/Contact/Subscription.pm
@@ -42,11 +47,13 @@ t/01.00-db.t
 t/00.00-setup.t
 t/02.00-handlers.t
 t/conf/email-blaster-config.xml
+t/conf/email-blaster-config.xml.CLUSTERED
 t/conf/apache2-asp-config.xml
 t/email_blaster
-sbin/bulk_blaster.pl
-sbin/throttled_blaster.pl
-sbin/fake_transmission.pl
+sbin/email-blaster-clustered.pl
+sbin/email-blaster-standalone.pl
+sbin/throttled-blaster.pl
 sbin/email_blaster.sql
+sbin/make-fake-transmission.pl
 
 META.yml                                 Module meta-data (added by MakeMaker)

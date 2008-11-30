@@ -14,7 +14,7 @@ sub new
   my $s = $class->SUPER::new( $ref );
   
   $s->{throttle} ||= [ ];
-  map { $_ = $class->SUPER::new( $_ ) } @{ $s->{throttle} };
+  map { $_ = $class->SUPER::new( $_ ) } grep { ref($_) && ref($_) eq 'HASH' } @{[ $s->{throttle} ]};
   
   return $s;
 }# end new()

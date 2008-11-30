@@ -50,16 +50,12 @@
   
   <handlers>
     <server_startup>
-    <!-- Only for Clustering
       <handler>Email::Blaster::ClusteredStartupHandler</handler>
-    -->
       <handler>My::StartupHandler</handler>
     </server_startup>
     
     <server_shutdown>
-    <!-- Only for Clustering
       <handler>Email::Blaster::ClusteredShutdownHandler</handler>
-    -->
       <handler>My::ShutdownHandler</handler>
     </server_shutdown>
   

@@ -4,9 +4,9 @@ use strict;
 use warnings 'all';
 use Test::More 'no_plan';
 
-use_ok('Email::Blaster');
+use_ok('Email::Blaster::StandAlone');
 
-ok( my $blaster = Email::Blaster->new(), 'new' );
+ok( my $blaster = Email::Blaster::StandAlone->new(), 'new' );
 
 ok( $blaster->handle_event( type => 'server_startup' ), 'handled server_startup' );
 is( $ENV{STARTUP_OK} => 1, "startup handler ran");

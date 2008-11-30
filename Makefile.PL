@@ -11,7 +11,11 @@ WriteMakefile(
     dist => {
       PREOP => 'pod2text lib/Email/Blaster.pm > $(DISTVNAME)/README',
     },
-    EXE_FILES         => [qw( sbin/bulk_blaster.pl sbin/throttled_blaster.pl )],
+    EXE_FILES         => [qw(
+      sbin/email-blaster-clustered.pl
+      sbin/email-blaster-standalone.pl
+      sbin/throttled-blaster.pl
+    )],
     PREREQ_PM         => {
       forks             => 0.27,
       XML::Simple       => 2.18,

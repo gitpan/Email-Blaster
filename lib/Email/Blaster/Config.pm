@@ -20,8 +20,6 @@ sub new
     push @INC, $_;
   } @{ $s->libs->lib };
   
-  # Make sure we can load all of our handlers:
-  
   return $s;
 }# end new()
 
@@ -31,6 +29,7 @@ sub _init
 {
   my ($s) = @_;
 
+  # Make sure we can load all of our handlers:
   local $SIG{__DIE__} = \&Carp::confess;
   map { $s->_load_class( $_ ) } @{ $s->handlers->server_startup->handler };
   map { $s->_load_class( $_ ) } @{ $s->handlers->server_shutdown->handler };
@@ -46,7 +45,7 @@ sub throttled
 {
   my $s = shift;
   
-  return wantarray ? @{ $s->{throttled}->throttle } : $s->{throttled}->throttle;
+  return wantarray ? @{[ $s->{throttled}->throttle ]} : $s->{throttled}->throttle;
 }# end throttled()
 
 

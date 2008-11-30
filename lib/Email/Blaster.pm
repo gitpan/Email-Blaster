@@ -6,19 +6,18 @@ use Carp 'confess';
 use forks;
 use forks::shared;
 use POSIX 'ceil';
+use HTTP::Date 'time2iso';
+use Time::HiRes qw( gettimeofday usleep );
+use Digest::MD5 'md5_hex';
 use Email::Blaster::ConfigLoader;
 use Email::Blaster::Event;
 use Email::Blaster::Event::Type;
 use Email::Blaster::Transmission;
-use HTTP::Date 'time2iso';
-use Time::HiRes qw( gettimeofday usleep );
-use Digest::MD5 'md5_hex';
 
-our $VERSION = '0.0001_04';
+our $VERSION = '0.0001_05';
 our $InstanceClass = __PACKAGE__;
 our $instance;
 my @progress : shared = ( );
-my $blaster_key = md5_hex( $$ . "" . { } . time() );
 
 
 #==============================================================================
@@ -69,7 +68,7 @@ sub run
     warn "Processing $trans...\n";
     $trans->is_started( 1 );
     $trans->started_on( time2iso() );
-    $trans->blaster_key( $blaster_key );
+    $trans->blaster_hostname( $s->config->hostname );
     $trans->update();
     
     # Call our initializer(s):
@@ -202,30 +201,7 @@ SQL
 
 
 #==============================================================================
-sub find_new_transmission
-{
-  my ($s) = @_;
-  
-  my $sth = Email::Blaster::Transmission->db_Main->prepare(<<"SQL");
-SELECT *
-FROM transmissions
-WHERE is_queued = 1
-AND (
-  is_started = 0
-)
-OR (
-  is_started = 1
-  AND is_completed = 0
-  AND blaster_key <> ?
-)
-ORDER BY queued_on DESC
-LIMIT 0, 1
-SQL
-  $sth->execute( $blaster_key );
-  return unless my ($trans) = Email::Blaster::Transmission->sth_to_objects( $sth );
-  
-  return $trans;
-}# end find_new_transmission()
+sub find_new_transmission;
 
 
 #==============================================================================
@@ -288,26 +264,7 @@ Email::Blaster - Scalable Mass Email System
 
 =head1 SYNOPSIS
 
-  % mysql -u xxx -p
-  mysql> create database email_blaster;
-  mysql> quit;
-  % mysql -u xxx -p email_blaster < sbin/email_blaster.sql
-
-Edit the config file:
-
-  % vi conf/email-blaster-config.xml
-
-Insert some fake data to play with:
-
-  % perl fake-transmission.pl
-
-Run the bulk blaster:
-
-  % perl bulk_blaster.pl
-
-Run the *throttled* blaster:
-
-  % perl throttled_blaster.pl
+Generally, don't use this module from your code.  Use the supplied scripts instead.
 
 =head1 DESCRIPTION
 
@@ -318,20 +275,24 @@ This version has many features.
 
 =over 4
 
+=item * Clustering Support
+
+Uses memcached and libevent to do the heavy lifting.
+
 =item * Testing mode.
 
 Send a few messages to yourself before you turn on the firehose.
 
 =item * Domain-based throttling with hourly limits.
 
-Never get blacklisted again because of email flooding.
+Never get blacklisted again because of email flooding too quickly from your network.
 
 =item * Configurable (and subclassable) behaviors and components.
 
 If configuration alone doesn't get you what you want, you can always subclass
 something (i.e. MailSender or MaillogWatcher) to get the desired behavior.
 
-=item * Scales Out Well.
+=item * Scales Out Well (Clustering).
 
 Designed to spread the work out across many, many, many servers.  If your email
 list has 1Million subscribers, you could *reliably* send your messages to them
@@ -418,6 +379,12 @@ Subclass L<Email::Blaster::MessageBouncedHandler> and add the following to your 
       ...
       <handler>My::MessageBouncedHandler</handler>
     </message_bounced>
+
+=head1 SUPPORT
+
+Visit L<http://www.devstack.com/contact/> or email the author at <jdrago_999@yahoo.com>
+
+Commercial support and installation is available.
 
 =head1 AUTHOR
 

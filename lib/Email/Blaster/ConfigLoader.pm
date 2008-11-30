@@ -20,7 +20,7 @@ sub load
   return $Configs->{$path} if $Configs->{$path};
   
   my $xml = XML::Simple::XMLin( $path,
-    ForceArray => [qw/ throttle handler lib /],
+    ForceArray => [qw/ throttle handler lib server /],
     SuppressEmpty => '',
   );
   

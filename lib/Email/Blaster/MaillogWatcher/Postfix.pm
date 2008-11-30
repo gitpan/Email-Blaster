@@ -16,14 +16,15 @@ sub watch_maillog
   while( 1 )
   {
     my $wanted = `grep $queued_as $maillog_path*`;
-    unless( $wanted =~ m/\sstatus\=(.*?)\s/i )
+    my $status;
+    unless( ($status) = $wanted =~ m/\sstatus\=(.*?)\s/i )
     {
       usleep(500000);
       next;
     }# end until()
     
     # We have sent it:
-    return $wanted eq 'sent';
+    return lc($wanted) eq 'sent';
   }# end while()
 }# end watch_maillog()
 

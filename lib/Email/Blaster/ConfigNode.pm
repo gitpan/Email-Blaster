@@ -27,7 +27,12 @@ sub init_keys
     if( $key eq 'throttled' )
     {
       require Email::Blaster::ConfigNode::Throttled;
-      $s->{$key} = Email::Blaster::ConfigNode::Throttled->new( $s->{$key} );
+      $s->{$key} = Email::Blaster::ConfigNode::Throttled->new( delete($s->{$key}) );
+    }
+    elsif( $key eq 'cluster' )
+    {
+      require Email::Blaster::ConfigNode::Cluster;
+      $s->{$key} = Email::Blaster::ConfigNode::Cluster->new( delete($s->{$key}) );
     }
     else
     {
