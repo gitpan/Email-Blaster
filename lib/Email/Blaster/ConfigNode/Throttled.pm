@@ -13,11 +13,7 @@ sub new
   
   my $s = $class->SUPER::new( $ref );
   
-  $s->{throttle} ||= [ ];
-  foreach( @{[ $s->{throttle} ]} )
-  {
-    map { $class->SUPER::new( $_ ) } @$_;
-  }# end foreach()
+  map { $_ = $class->SUPER::new( $_ ) } @{ $s->{throttle} };
   
   return $s;
 }# end new()

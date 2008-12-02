@@ -1,5 +1,8 @@
 Revision history for Perl extension Email::Blaster.
 
+1.0001  2008-12-01
+  - Updated some array-mapping logic for Config.
+
 1.0000  2008-11-30
   - Production-ready release.
 

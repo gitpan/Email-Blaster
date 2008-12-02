@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                Email-Blaster
-version:             1.0000
+version:             1.0001
 abstract:            Scalable Mass Email System
 license:             ~
 author:              

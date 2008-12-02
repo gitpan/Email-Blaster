@@ -45,7 +45,7 @@ sub throttled
 {
   my $s = shift;
   
-  return wantarray ? map { @$_ } @{[ $s->{throttled}->throttle ]} : $s->{throttled}->throttle;
+  return wantarray ? @{ $s->{throttled}->throttle } : $s->{throttled}->throttle;
 }# end throttled()
 
 

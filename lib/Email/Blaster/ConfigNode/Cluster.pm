@@ -26,13 +26,7 @@ sub servers
 {
   my $s = shift;
   
-  my @servers = ( );
-  foreach my $s ( @{[ $s->{servers}->server ]} )
-  {
-    push @servers, @$s;
-  }# end foreach()
-  
-  return @servers;
+  @{ $s->{servers}->server };
 }# end throttled()
 
 1;# return true:
